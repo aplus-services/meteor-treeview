@@ -9,27 +9,19 @@ Template.TreeView.onCreated(function () {
 
   instance.autorun(() => {
     instance.state.set('ready', false);
-    console.log('autorun in TreeView');
-
     let dataContext = Template.currentData();
-
     Tracker.afterFlush(function () {
       if (dataContext && dataContext.collection) {
         if (dataContext.subscription) {
-          // console.log('Calling subscribe');
           if (dataContext.selector) {
             instance.subscribe(dataContext.subscription, dataContext.selector, {
               onReady: () => {
-                //console.log("onReady called");
-                //console.debug(this);
                 instance.state.set('ready', true);
               }
             })
           } else {
             instance.subscribe(dataContext.subscription, {
               onReady: () => {
-                //console.log("onReady called");
-                //console.debug(this);
                 instance.state.set('ready', true);
               }
             });
@@ -41,7 +33,6 @@ Template.TreeView.onCreated(function () {
       } else if (!dataContext || !dataContext.core || !dataContext.core.data) {
         this.state.set('errorMessage', 'No collection set.');
       }
-
     });
 
   });
@@ -60,7 +51,7 @@ Template.TreeView.helpers({
 });
 
 Template.TreeView_content.onRendered(function () {
-  console.log('Template.TreeView_content.onRendered');
+  // console.log('APS: Template.TreeView_content.onRendered');
   let dataContext = Template.currentData();
   let collection = dataContext.collection;
   let mapping = dataContext.mapping || {};
